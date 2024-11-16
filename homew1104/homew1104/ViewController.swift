@@ -2,8 +2,6 @@ import SwiftUI
 import UIKit
 
 
-let excelStackView = UIStackView()
-
 let buttonTitles : [[String]] = [["AC","+/-","%","/"],["7","8","9","X"],["4","5","6","-"],["1","2","3","+"],["","0",".","="]]
 
 class ViewController: UIViewController {
@@ -15,9 +13,8 @@ class ViewController: UIViewController {
         processLabel.textAlignment = .right
         processLabel.font = UIFont.systemFont(ofSize: 30)
         processLabel.translatesAutoresizingMaskIntoConstraints = false
-
         return processLabel
-    }()
+    }() //processlabel. 생성
     
     private let resultLabel: UILabel = {
         let resultLabel = UILabel() // 결과를 검정으로 표시
@@ -29,7 +26,7 @@ class ViewController: UIViewController {
         resultLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return resultLabel
-    }()
+    }() //resultLabel 생성
     
     private let resultStackView: UIStackView = {
         let resultStackView = UIStackView()
@@ -38,18 +35,12 @@ class ViewController: UIViewController {
         resultStackView.translatesAutoresizingMaskIntoConstraints = false
         return resultStackView
     }()
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        resultStackView.addArrangedSubview(processLabel)
-        resultStackView.addArrangedSubview(resultLabel)
-        //stackView 설정
-        
-        
+    
+    private let excelStackView: UIStackView = {
+        let excelStackView = UIStackView()
         excelStackView.axis = .vertical
-        
+        excelStackView.distribution = .fillEqually
         excelStackView.translatesAutoresizingMaskIntoConstraints = false
-        
         for buttonTitle in buttonTitles {
             let newStackView = UIStackView()
             newStackView.axis = .horizontal
@@ -65,7 +56,15 @@ class ViewController: UIViewController {
             }
             excelStackView.addArrangedSubview(newStackView)
         }
+        return excelStackView
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
+        resultStackView.addArrangedSubview(processLabel)
+        resultStackView.addArrangedSubview(resultLabel)
+        //stackView 설정
         
         view.addSubview(resultStackView)
         view.addSubview(excelStackView)
@@ -75,16 +74,14 @@ class ViewController: UIViewController {
             resultStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             resultStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             resultStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant : -30),
-            resultStackView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25),
-        
+            resultStackView.heightAnchor.constraint(equalToConstant: 100)
         ])
         
         NSLayoutConstraint.activate([
             excelStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
             excelStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             excelStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-           // excelStackView.topAnchor.constraint(equalTo: resultStackView.bottomAnchor, constant:20)
-            
+            excelStackView.topAnchor.constraint(equalTo: resultStackView.bottomAnchor, constant:20)
         ])
         
         view.backgroundColor = .darkGray
@@ -93,12 +90,11 @@ class ViewController: UIViewController {
     @objc func calculbuttonTapped(_ sender: UIButton) {
         // 버튼 클릭 이벤트 처리
     }
+    
 }
 
 
-
-
-// SwiftUI Canvas에서 사용할 수 있도록 ViewController를 래핑
+// SwiftUI Canvas에서 사용할 수 있도록 ViewController를 래핑(내가 지금 볼 필요 x)
 struct ViewControllerPreview: PreviewProvider {
     static var previews: some View {
         // UIKit ViewController를 SwiftUI에서 Preview로 표시

@@ -87,9 +87,19 @@ class ViewController: UIViewController {
         view.backgroundColor = .darkGray
     }
     
-    @objc func calculbuttonTapped(_ sender: UIButton) {
-        // 버튼 클릭 이벤트 처리
+    @objc func anyButoon(_ sender: UIButton) {
+        
     }
+    
+    @objc func clickACButton(_ sender: UIButton) {
+        resultLabel.text = ""
+        processLabel.text = ""
+    }
+    
+    @objc func clickEqualButton(_ sender: UIButton) {
+    
+    }
+    
     
 }
 
